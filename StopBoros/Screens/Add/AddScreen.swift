@@ -68,7 +68,7 @@ struct AddScreen: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color("Surface"))
         .presentationDragIndicator(.visible)
-        .presentationDetents([.medium])
+        .presentationDetents([.medium, .large])
     }
 }
 
