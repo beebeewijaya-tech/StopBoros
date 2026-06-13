@@ -13,7 +13,7 @@ enum AppTab {
 
 struct MainScreen: View {
     @State private var selectedTab: AppTab = .home
-    @State private var addPopup: Bool = false
+    @State var isAddPopUp: Bool = false
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -45,14 +45,16 @@ struct MainScreen: View {
             .onChange(of: selectedTab, { oldValue, newValue in
                 if newValue == .add {
                     selectedTab = oldValue
-                    addPopup.toggle()
+                    isAddPopUp.toggle()
                 } else {
                     selectedTab = newValue
                 }
             })
             .colorScheme(.dark)
-            .sheet(isPresented: $addPopup) {
-                AddScreen()
+            .sheet(isPresented: $isAddPopUp) {
+                AddScreen() {
+                    isAddPopUp = false
+                }
             }
         }
     }

@@ -18,14 +18,34 @@ struct AddScreen: View {
     
     // MARK: - State
     @State private var activeCategory: ExpenseCategory = .food
+    @State private var amount: String = "0"
+    
+    var action: () -> Void
+    
+    init(action: @escaping () -> Void) {
+        self.action = action
+    }
     
     var body: some View {
         VStack {
-            Text("Rp 35000")
-                .font(.system(size: 52))
-                .foregroundStyle(.white)
-                .bold()
-                .padding(.bottom, 8)
+            HStack(alignment: .center) {
+                Text("Rp.")
+                    .font(.system(size: 52))
+                    .foregroundStyle(.white)
+                    .bold()
+                
+                TextField("", text: $amount)
+                    .font(.system(size: 52))
+                    .foregroundStyle(.white)
+                    .bold()
+                    .keyboardType(.numberPad)
+                    .fixedSize(horizontal: true, vertical: false)
+                    .frame(minWidth: 50)
+            }
+            .padding(.bottom, 8)
+            .frame(maxWidth: .infinity, alignment: .center)
+
+            
             Text("tap amount to edit")
                 .font(.caption)
                 .fontWeight(.bold)
@@ -63,16 +83,35 @@ struct AddScreen: View {
                 }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.bottom, 20)
+            
+            Button {
+                action()
+            } label: {
+                VStack {
+                    Text("Add Expense")
+                        .foregroundStyle(Color("GreenLight"))
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 60)
+                .background(Color("CardBackground"))
+                .overlay(
+                    RoundedRectangle(cornerRadius: 18)
+                        .stroke(Color("GreenLight"), lineWidth: 2)
+                )
+            }
         }
         .padding()
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.vertical, 10)
         .background(Color("Surface"))
         .presentationDragIndicator(.visible)
-        .presentationDetents([.medium, .large])
     }
 }
 
 
 #Preview {
-    AddScreen()
+    AddScreen() {
+        
+    }
 }
