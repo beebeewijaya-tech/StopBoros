@@ -29,7 +29,7 @@ struct AppCategory: View {
             
             VStack(alignment: .leading) {
                 Text(category.category)
-                    .foregroundStyle(.white)
+                    .foregroundStyle(active ? category.style.background : .white)
                     .bold()
                     .font(.callout)
             }
@@ -40,7 +40,7 @@ struct AppCategory: View {
         .clipShape(RoundedRectangle(cornerRadius: 20))
         .overlay(
             RoundedRectangle(cornerRadius: 20)
-                .stroke(active ? category.style.background : .gray, lineWidth: 2)
+                .stroke(active ? category.style.background : .clear, lineWidth: 2)
         )
         .padding(.bottom, 8)
     }

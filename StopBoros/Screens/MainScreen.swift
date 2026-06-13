@@ -26,15 +26,15 @@ struct MainScreen: View {
                 }
                 
                 Tab("Breakdown", systemImage: "chart.pie.fill", value: AppTab.breakdown) {
-                    HomeScreen()
+                    BreakdownScreen()
                 }
                 
                 Tab("History", systemImage: "list.clipboard.fill", value: AppTab.history) {
-                    HomeScreen()
+                    HistoryScreen()
                 }
                 
                 Tab("Profile", systemImage: "person.fill", value: AppTab.profile) {
-                    HomeScreen()
+                    ProfileScreen()
                 }
                 
                 Tab("", systemImage: "plus", value: AppTab.add, role: .search) {
