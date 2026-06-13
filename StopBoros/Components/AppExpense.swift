@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum ExpenseCategory {
-    case food, transport, shopping
+    case food, transport, shopping, entertainment
     
     var background: Color {
         switch self {
@@ -18,6 +18,8 @@ enum ExpenseCategory {
             return Color("Transport")
         case .shopping:
             return Color("Shopping")
+        case .entertainment:
+            return Color("Entertainment")
         }
     }
     
@@ -29,6 +31,8 @@ enum ExpenseCategory {
             return "car.fill"
         case .shopping:
             return "bag.fill"
+        case .entertainment:
+            return "gamecontroller.fill"
         }
     }
     
@@ -40,6 +44,8 @@ enum ExpenseCategory {
             return "Transport"
         case .shopping:
             return "Shopping"
+        case .entertainment:
+            return "Entertainment"
         }
     }
 }
