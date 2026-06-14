@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 @main
 struct StopBorosApp: App {
+    let expenseContainer = try! ModelContainer(for: ExpenseModel.self)
+    
     var body: some Scene {
         WindowGroup {
             MainScreen()
+                .modelContainer(expenseContainer)
         }
     }
 }

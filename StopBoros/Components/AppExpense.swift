@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-enum ExpenseCategory {
+enum ExpenseCategory: Codable {
     case food, transport, shopping, entertainment
     
     var background: Color {
@@ -54,12 +54,13 @@ struct Expense: Identifiable {
     var id: UUID = .init()
     var expense: String
     var category: ExpenseCategory
-    var created: Date
+    var created: Date = .now
+    var updated: Date = .now
     var amount: Double
 }
 
 struct AppExpense: View {
-    var expense: Expense
+    var expense: ExpenseModel
     
     var formatedDate: String {
         let formatter = DateFormatter()
@@ -82,7 +83,7 @@ struct AppExpense: View {
             
             
             VStack(alignment: .leading) {
-                Text(expense.expense)
+                Text(expense.name)
                     .foregroundStyle(.white)
                     .bold()
                     .font(.title3)
