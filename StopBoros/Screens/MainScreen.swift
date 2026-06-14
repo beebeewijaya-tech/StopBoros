@@ -6,14 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 enum AppTab {
     case home, breakdown, history, profile, add
 }
 
 struct MainScreen: View {
+    // MARK: - State
     @State private var selectedTab: AppTab = .home
     @State var isAddPopUp: Bool = false
+    @State var expenseVM: ExpenseViewModel = ExpenseViewModel()
+    
+    // MARK: - Environment
+    @Environment(\.modelContext) private var modelContext
     
     var body: some View {
         ZStack(alignment: .bottom) {
@@ -57,6 +63,10 @@ struct MainScreen: View {
                 }
             }
         }
+        .onAppear {
+            expenseVM.modelContext = modelContext
+        }
+        .environment(expenseVM)
     }
 }
 

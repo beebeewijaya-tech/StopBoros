@@ -6,15 +6,13 @@
 //
 
 import SwiftUI
-
+import SwiftData
 
 struct HomeScreen: View {
+    @Environment(ExpenseViewModel.self) private var expenseVM
+    
+    // MARK: - State
     @State private var progress: CGFloat = 1/10
-    private var expenses: [Expense] = [
-        Expense(expense: "Grab", category: .transport, created: .now, amount: 15000),
-        Expense(expense: "Lunch", category: .food, created: .distantPast, amount: 25000),
-        Expense(expense: "Kopi Tuku", category: .shopping, created: .distantFuture, amount: 18000),
-    ]
     
     var body: some View {
         ZStack {
@@ -91,8 +89,8 @@ struct HomeScreen: View {
                     .padding(.bottom, 12)
                     
                     LazyVStack {
-                        ForEach(expenses.indices, id: \.self) { idx in
-                            AppExpense(expense: expenses[idx])
+                        ForEach(expenseVM.expenses.indices, id: \.self) { idx in
+                            AppExpense(expense: expenseVM.expenses[idx])
                                 .padding(.bottom, 12)
                         }
                     }
@@ -100,6 +98,9 @@ struct HomeScreen: View {
                 Spacer()
             }
             .padding(34)
+        }
+        .onAppear {
+            expenseVM.fetchExpenses()
         }
     }
 }
