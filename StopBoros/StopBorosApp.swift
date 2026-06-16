@@ -10,7 +10,7 @@ import SwiftData
 
 @main
 struct StopBorosApp: App {
-    let expenseContainer = try! ModelContainer(for: ExpenseModel.self)
+    let expenseContainer = try! ModelContainer(for: ExpenseModel.self, WalletModel.self)
     
     var body: some Scene {
         WindowGroup {

@@ -9,13 +9,14 @@ import SwiftUI
 import SwiftData
 
 enum AppTab {
-    case home, breakdown, history, profile, add
+    case home, breakdown, history, wallet, add
 }
 
 struct MainScreen: View {
     // MARK: - State
     @State private var selectedTab: AppTab = .home
-    @State var isAddPopUp: Bool = false
+    @State var isAddExpensePopUp: Bool = false
+    @State var isAddWalletPopUp: Bool = false
     @State var expenseVM: ExpenseViewModel = ExpenseViewModel()
     
     // MARK: - Environment
@@ -39,8 +40,8 @@ struct MainScreen: View {
                     HistoryScreen()
                 }
                 
-                Tab("Profile", systemImage: "person.fill", value: AppTab.profile) {
-                    ProfileScreen()
+                Tab("Wallet", systemImage: "wallet.bifold.fill", value: AppTab.wallet) {
+                    WalletScreen()
                 }
                 
                 Tab("", systemImage: "plus", value: AppTab.add, role: .search) {
@@ -50,17 +51,26 @@ struct MainScreen: View {
             .tint(Color("GreenNight"))
             .onChange(of: selectedTab, { oldValue, newValue in
                 if newValue == .add {
+                    if oldValue == .wallet {
+                        // add wallet
+                        isAddWalletPopUp.toggle()
+                    } else {
+                        // add expense
+                        isAddExpensePopUp.toggle()
+                    }
                     selectedTab = oldValue
-                    isAddPopUp.toggle()
                 } else {
                     selectedTab = newValue
                 }
             })
             .colorScheme(.dark)
-            .sheet(isPresented: $isAddPopUp) {
+            .sheet(isPresented: $isAddExpensePopUp) {
                 AddScreen() {
-                    isAddPopUp = false
+                    isAddExpensePopUp = false
                 }
+            }
+            .sheet(isPresented: $isAddWalletPopUp) {
+                Text("hh")
             }
         }
         .onAppear {
