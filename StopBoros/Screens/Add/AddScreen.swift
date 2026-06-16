@@ -11,7 +11,6 @@ import SwiftUI
 enum FormError {
     case empty, tooSmall, invalidFormat
     
-    
     var formatError: String? {
         switch self {
         case .empty:
@@ -95,18 +94,7 @@ struct AddScreen: View {
                 .foregroundStyle((amountError != nil) ? .red : .white.opacity(0.5))
                 .padding(.bottom, 20)
             
-            TextField("What did you spend on?", text: $description)
-                .padding()
-                .frame(maxWidth: .infinity)
-                .frame(height: 58)
-                .foregroundStyle(.white)
-                .glassEffect(in: .rect(cornerRadius: 12))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(.red, lineWidth: (descriptionError != nil) ? 2 : 0)
-                )
-                .keyboardType(.default)
-                .padding(.bottom, 24)
+            AppTextfield(label: "", placeholder: "What did you spend on?", description: $description, descriptionError: descriptionError)
             
             VStack(alignment: .leading) {
                 Text("Category")
@@ -133,25 +121,13 @@ struct AddScreen: View {
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.bottom, 20)
             
-            Button {
+            AppButton(label: "Add Expense", style: .primary) {
                 isAmountDirty = true
                 isDescriptionDirty = true
                 guard amountError == nil, descriptionError == nil else { return }
                 
                 expenseVM.addExpense(expense: Expense(expense: description, category: activeCategory, amount: Double(amount) ?? 0))
                 action()
-            } label: {
-                VStack {
-                    Text("Add Expense")
-                        .foregroundStyle(Color("GreenLight"))
-                }
-                .frame(maxWidth: .infinity)
-                .frame(height: 60)
-                .background(Color("CardBackground"))
-                .overlay(
-                    RoundedRectangle(cornerRadius: 18)
-                        .stroke(Color("GreenLight"), lineWidth: 2)
-                )
             }
         }
         .padding()
@@ -190,4 +166,5 @@ struct AddScreen: View {
     AddScreen() {
         
     }
+    .environment(ExpenseViewModel())
 }

@@ -11,20 +11,10 @@ import SwiftData
 
 @Observable
 final class ExpenseViewModel {
-    var expenses: [ExpenseModel] = []
     var modelContext: ModelContext?
     
     init(modelContext: ModelContext? = nil) {
         self.modelContext = modelContext
-    }
-    
-    func fetchExpenses() {
-        guard let context = modelContext else { return }
-        let descriptor = FetchDescriptor<ExpenseModel>(
-            sortBy: [SortDescriptor(\.created, order: .reverse)]
-        )
-        
-        expenses = (try? context.fetch(descriptor)) ?? []
     }
     
     func addExpense(expense: Expense) {

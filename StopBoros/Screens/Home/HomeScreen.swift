@@ -14,6 +14,13 @@ struct HomeScreen: View {
     // MARK: - State
     @State private var progress: CGFloat = 1/10
     
+    // MARK: - Query
+    @Query(
+        sort: \ExpenseModel.created,
+        order: .reverse
+    )
+    private var expenses: [ExpenseModel]
+    
     var body: some View {
         ZStack {
             Color("AppBackground")
@@ -89,8 +96,8 @@ struct HomeScreen: View {
                     .padding(.bottom, 12)
                     
                     LazyVStack {
-                        ForEach(expenseVM.expenses.indices, id: \.self) { idx in
-                            AppExpense(expense: expenseVM.expenses[idx])
+                        ForEach(expenses.indices, id: \.self) { idx in
+                            AppExpense(expense: expenses[idx])
                                 .padding(.bottom, 12)
                         }
                     }
@@ -99,12 +106,10 @@ struct HomeScreen: View {
             }
             .padding(34)
         }
-        .onAppear {
-            expenseVM.fetchExpenses()
-        }
     }
 }
 
 #Preview {
     HomeScreen()
+        .environment(ExpenseViewModel())
 }
