@@ -70,7 +70,7 @@ struct MainScreen: View {
                 }
             }
             .sheet(isPresented: $isAddWalletPopUp) {
-                Text("hh")
+                AddWalletScreen()
             }
         }
         .onAppear {

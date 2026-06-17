@@ -12,14 +12,16 @@ import SwiftUI
 final class WalletModel {
     var name: String
     var balance: Double
-    var hide: Bool
+    var type: String
+    var active: Bool
     var created: Date
     var updated: Date
     
-    init(name: String, balance: Double, hide: Bool, created: Date, updated: Date) {
+    init(name: String, balance: Double, type: String, active: Bool, created: Date, updated: Date) {
         self.name = name
         self.balance = balance
-        self.hide = hide
+        self.type = type
+        self.active = active
         self.created = created
         self.updated = updated
     }
